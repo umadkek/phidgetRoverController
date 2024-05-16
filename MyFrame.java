@@ -1,6 +1,8 @@
 package rover;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 public class MyFrame extends JFrame implements ActionListener {
     private static final int FRAME_WIDTH = 350;
@@ -62,21 +64,33 @@ public class MyFrame extends JFrame implements ActionListener {
         upButton.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         
         upButton.addMouseListener(new MouseListener() {
+            @Override
             public void mouseClicked(MouseEvent e) {
                 
             } 
-            
+            @Override
             public void mouseEntered(MouseEvent e) {
                 
             } 
+            @Override
             public void mouseExited(MouseEvent e) {
                 
             } 
+            @Override
             public void mousePressed(MouseEvent e) {
-                
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    try {
+                        Rover.moveForward();
+                    } catch (Exception ex) {}
+                }
             } 
+            @Override
             public void mouseReleased(MouseEvent e) {
-                
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    try {
+                        Rover.stopMoving();
+                    } catch (Exception ex) {}
+                }
             } 
         });
 
@@ -132,6 +146,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
             }
             
+            @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
@@ -188,11 +203,11 @@ public class MyFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == upButton) {
-            System.out.println("Moved up");
+            
         } else if (source == downButton) {
-            System.out.println("Moved down");
+            
         } else if (source == leftButton) {
-            System.out.println("Moved left");
+            
         } else if (source == rightButton) {
             
         }
