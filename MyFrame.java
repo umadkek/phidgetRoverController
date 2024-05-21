@@ -1,13 +1,11 @@
 package rover;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 public class MyFrame extends JFrame implements ActionListener {
     private static final int FRAME_WIDTH = 350;
     private static final int FRAME_HEIGHT = 330;
-    private static final String FRAME_TITLE = "Title";
+    private static final String FRAME_TITLE = "Phidgets Rover Controller";
     private static final int BUTTON_WIDTH = 160;
     private static final int BUTTON_HEIGHT = 50;
 
