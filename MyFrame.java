@@ -13,16 +13,16 @@ public class MyFrame extends JFrame implements ActionListener {
     private JButton downButton;
     private JButton leftButton;
     private JButton rightButton;
-    private JButton speedSubmitButton;
+    private JButton accelerationSubmitButton;
     private JPanel panel;
     private JPanel topPanel;
     private JPanel bottomPanel;
     private JPanel leftPanel;
     private JPanel rightPanel;
     private JPanel centerPanel;
-    private JPanel speedPanel;
-    private JTextField speedField;
-    private JLabel speedErrorLabel;
+    private JPanel accelerationPanel;
+    private JTextField accelerationField;
+    private JLabel accelerationErrorLabel;
 
     public MyFrame() {
         initUI();
@@ -78,7 +78,7 @@ public class MyFrame extends JFrame implements ActionListener {
                 try {
                     Rover.moveForward();
                 } catch (Exception ex) {}
-                speedErrorLabel.setText("Moving Forwards");
+                accelerationErrorLabel.setText("Moving Forwards");
             } 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -87,7 +87,7 @@ public class MyFrame extends JFrame implements ActionListener {
                         Rover.stopMoving();
                     } catch (Exception ex) {}
                 }
-                speedErrorLabel.setText("Stopped");
+                accelerationErrorLabel.setText("Stopped");
             } 
         });
 
@@ -118,7 +118,7 @@ public class MyFrame extends JFrame implements ActionListener {
                 try {
                     Rover.moveBackward();
                 } catch (Exception ex) {}
-                speedErrorLabel.setText("Moving Backwards");
+                accelerationErrorLabel.setText("Moving Backwards");
             } 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -127,7 +127,7 @@ public class MyFrame extends JFrame implements ActionListener {
                         Rover.stopMoving();
                     } catch (Exception ex) {}
                 }
-                speedErrorLabel.setText("Stopped");
+                accelerationErrorLabel.setText("Stopped");
             }
         });
         
@@ -158,7 +158,7 @@ public class MyFrame extends JFrame implements ActionListener {
                 try {
                     Rover.moveLeft();
                 } catch (Exception ex) {}
-                speedErrorLabel.setText("Turning Left");
+                accelerationErrorLabel.setText("Turning Left");
             } 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -167,7 +167,7 @@ public class MyFrame extends JFrame implements ActionListener {
                         Rover.stopMoving();
                     } catch (Exception ex) {}
                 }
-                speedErrorLabel.setText("Stopped");
+                accelerationErrorLabel.setText("Stopped");
             }
         });
                                                                                  
@@ -198,7 +198,7 @@ public class MyFrame extends JFrame implements ActionListener {
                 try {
                     Rover.moveRight();
                 } catch (Exception ex) {}
-                speedErrorLabel.setText("Turning Right");
+                accelerationErrorLabel.setText("Turning Right");
             } 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -207,7 +207,7 @@ public class MyFrame extends JFrame implements ActionListener {
                         Rover.stopMoving();
                     } catch (Exception ex) {}
                 }
-                speedErrorLabel.setText("Stopped");
+                accelerationErrorLabel.setText("Stopped");
             }
         });
         
@@ -218,14 +218,14 @@ public class MyFrame extends JFrame implements ActionListener {
         centerPanel = new JPanel();
         centerPanel.setLayout(new FlowLayout());
 
-        speedPanel = new JPanel();
-        speedPanel.setLayout(new BoxLayout(speedPanel, BoxLayout.Y_AXIS));
+        accelerationPanel = new JPanel();
+        accelerationPanel.setLayout(new BoxLayout(accelerationPanel, BoxLayout.Y_AXIS));
 
-        JLabel speedLabel = new JLabel("Speed: ");
-        speedField = new JTextField(10);
-        speedErrorLabel = new JLabel();
+        JLabel accelerationLabel = new JLabel("Acceleration: ");
+        accelerationField = new JTextField(10);
+        accelerationErrorLabel = new JLabel();
 
-        speedField.addKeyListener(new KeyListener() {
+        accelerationField.addKeyListener(new KeyListener() {
 
             @Override
             public void keyTyped(KeyEvent e) {
@@ -236,11 +236,11 @@ public class MyFrame extends JFrame implements ActionListener {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
-                        Rover.setSpeed(Integer.parseInt(speedField.getText()));
-                        speedField.setText("");
-                        speedErrorLabel.setText("");
+                        Rover.setAcceleration(Integer.parseInt(accelerationField.getText()));
+                        accelerationField.setText("");
+                        accelerationErrorLabel.setText("");
                     } catch (Exception ex) {
-                        speedErrorLabel.setText("Invalid speed or speed too big");
+                        accelerationErrorLabel.setText("Invalid acceleration or number too big");
                     }
                 }
             }
@@ -252,39 +252,30 @@ public class MyFrame extends JFrame implements ActionListener {
 
         });
 
-        centerPanel.add(speedLabel);
-        centerPanel.add(speedField);
-        centerPanel.add(speedErrorLabel);
+        centerPanel.add(accelerationLabel);
+        centerPanel.add(accelerationField);
+        centerPanel.add(accelerationErrorLabel);
 
-        speedSubmitButton = new JButton("Submit");
-        speedSubmitButton.addActionListener(new ActionListener() {
+        accelerationSubmitButton = new JButton("Submit");
+        accelerationSubmitButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Rover.setSpeed(Integer.parseInt(speedField.getText()));
-                    speedField.setText("");
-                    speedErrorLabel.setText("");
+                    Rover.setAcceleration(Integer.parseInt(accelerationField.getText()));
+                    accelerationField.setText("");
+                    accelerationErrorLabel.setText("");
                 } catch (Exception ex) {
-                    speedErrorLabel.setText("Invalid speed or speed too big");
+                    accelerationErrorLabel.setText("Invalid acceleration or number too big");
                 }
             }
         });
-        speedSubmitButton.setPreferredSize(new Dimension(75, 26));
+        accelerationSubmitButton.setPreferredSize(new Dimension(75, 26));
 
-        speedPanel.add(speedSubmitButton);
-        centerPanel.add(speedPanel);
+        accelerationPanel.add(accelerationSubmitButton);
+        centerPanel.add(accelerationPanel);
     }
-
-    private void validateSpeed() {
-        try {
-            int speed = Integer.parseInt(speedField.getText());
-            speedField.setText("");
-        } catch (NumberFormatException ex) {
-            speedErrorLabel.setText("Invalid speed");
-        }
-    }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {    
         Object source = e.getSource();
