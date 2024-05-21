@@ -58,8 +58,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
     private void createTopPanel() {
         topPanel = new JPanel();
-        upButton = new JButton("Up");
-        upButton.addActionListener(this);
+        upButton = new JButton("Forward");
         upButton.setFocusable(false);
         upButton.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         
@@ -78,11 +77,10 @@ public class MyFrame extends JFrame implements ActionListener {
             } 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    try {
-                        Rover.moveForward();
-                    } catch (Exception ex) {}
-                }
+                try {
+                    Rover.moveForward();
+                } catch (Exception ex) {}
+                speedErrorLabel.setText("Moving Forwards");
             } 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -91,6 +89,7 @@ public class MyFrame extends JFrame implements ActionListener {
                         Rover.stopMoving();
                     } catch (Exception ex) {}
                 }
+                speedErrorLabel.setText("Stopped");
             } 
         });
 
@@ -99,32 +98,121 @@ public class MyFrame extends JFrame implements ActionListener {
 
     private void createBottomPanel() {
         bottomPanel = new JPanel();
-        downButton = new JButton("Down");
-        downButton.addActionListener(this);
+        downButton = new JButton("Backward");
         downButton.setFocusable(false);
         downButton.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
-
+        
+        downButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+            } 
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            } 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            } 
+            @Override
+            public void mousePressed(MouseEvent e) {
+                try {
+                    Rover.moveBackward();
+                } catch (Exception ex) {}
+                speedErrorLabel.setText("Moving Backwards");
+            } 
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    try {
+                        Rover.stopMoving();
+                    } catch (Exception ex) {}
+                }
+                speedErrorLabel.setText("Stopped");
+            }
+        });
+        
         bottomPanel.add(downButton);
     }
 
     public void createLeftPanel() {
         leftPanel = new JPanel();
         leftButton = new JButton("<");
-        leftButton.addActionListener(this);
         leftButton.setFocusable(true);
         leftButton.setPreferredSize(new Dimension(BUTTON_HEIGHT, BUTTON_WIDTH)); // swapped to make button appear
                                                                                  // vertical
-
+        leftButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+            } 
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            } 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            } 
+            @Override
+            public void mousePressed(MouseEvent e) {
+                try {
+                    Rover.moveLeft();
+                } catch (Exception ex) {}
+                speedErrorLabel.setText("Turning Left");
+            } 
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    try {
+                        Rover.stopMoving();
+                    } catch (Exception ex) {}
+                }
+                speedErrorLabel.setText("Stopped");
+            }
+        });
+                                                                                 
         leftPanel.add(leftButton);
     }
 
     public void createRightPanel() {
         rightPanel = new JPanel();
         rightButton = new JButton(">");
-        rightButton.addActionListener(this);
         rightButton.setFocusable(false);
         rightButton.setPreferredSize(new Dimension(BUTTON_HEIGHT, BUTTON_WIDTH));
 
+        rightButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+            } 
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            } 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            } 
+            @Override
+            public void mousePressed(MouseEvent e) {
+                try {
+                    Rover.moveRight();
+                } catch (Exception ex) {}
+                speedErrorLabel.setText("Turning Right");
+            } 
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    try {
+                        Rover.stopMoving();
+                    } catch (Exception ex) {}
+                }
+                speedErrorLabel.setText("Stopped");
+            }
+        });
+        
         rightPanel.add(rightButton);
     }
 
@@ -150,10 +238,10 @@ public class MyFrame extends JFrame implements ActionListener {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
-                        int speed = Integer.parseInt(speedField.getText());
+                        Rover.setSpeed(Integer.parseInt(speedField.getText()));
                         speedField.setText("");
                         speedErrorLabel.setText("");
-                    } catch (NumberFormatException ex) {
+                    } catch (Exception ex) {
                         speedErrorLabel.setText("Invalid speed or speed too big");
                     }
                 }
@@ -176,10 +264,10 @@ public class MyFrame extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int speed = Integer.parseInt(speedField.getText());
+                    Rover.setSpeed(Integer.parseInt(speedField.getText()));
                     speedField.setText("");
                     speedErrorLabel.setText("");
-                } catch (NumberFormatException ex) {
+                } catch (Exception ex) {
                     speedErrorLabel.setText("Invalid speed or speed too big");
                 }
             }
@@ -200,16 +288,7 @@ public class MyFrame extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {    
         Object source = e.getSource();
-        if (source == upButton) {
-            
-        } else if (source == downButton) {
-            
-        } else if (source == leftButton) {
-            
-        } else if (source == rightButton) {
-            
-        }
     }
 }
