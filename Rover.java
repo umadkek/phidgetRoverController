@@ -22,9 +22,6 @@ public class Rover {
         rightMotors.open(5000);
         
         new MyFrame();
-        
-        
-        
     }       
     
     public static void moveForward() throws Exception {
@@ -52,7 +49,7 @@ public class Rover {
         rightMotors.setTargetVelocity(0);
     }
     
-    public static void setSpeed(int speed) throws Exception {
+    public static void setAcceleration(int speed) throws Exception {
         leftMotors.setAcceleration(speed);
         rightMotors.setAcceleration(speed);
     }
