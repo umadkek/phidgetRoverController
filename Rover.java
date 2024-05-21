@@ -23,28 +23,37 @@ public class Rover {
         
         new MyFrame();
         
+        
+        
     }       
     
     public static void moveForward() throws Exception {
-        leftMotors.setTargetVelocity(0);
-        rightMotors.setTargetVelocity(0);
+        leftMotors.setTargetVelocity(1);
+        rightMotors.setTargetVelocity(1);
     }
     
     public static void moveBackward() throws Exception {
-        
+        leftMotors.setTargetVelocity(-1);
+        rightMotors.setTargetVelocity(-1);
     }
     
     public static void moveLeft() throws Exception {
-        
+        leftMotors.setTargetVelocity(1);
+        rightMotors.setTargetVelocity(-1);
     }
     
     public static void moveRight() throws Exception {
-        leftMotors.setTargetVelocity(1);
-        rightMotors.setTargetVelocity(-1);
+        leftMotors.setTargetVelocity(-1);
+        rightMotors.setTargetVelocity(1);
     }
     
     public static void stopMoving() throws Exception {
         leftMotors.setTargetVelocity(0);
         rightMotors.setTargetVelocity(0);
+    }
+    
+    public static void setSpeed(int speed) throws Exception {
+        leftMotors.setAcceleration(speed);
+        rightMotors.setAcceleration(speed);
     }
 }
